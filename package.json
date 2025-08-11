@@ -25,13 +25,13 @@
     "url": "https://github.com/msrishav-28/eduflow-platform/issues"
   },
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc && vite build",
+  "dev": "cd eduflow-next && npm run dev",
+  "build": "cd eduflow-next && npm run build",
     "build:analyze": "npm run build && npx vite-bundle-analyzer dist",
     "build:premium": "npm run type-check && npm run build",
     "lint": "eslint . --ext ts,tsx --max-warnings 50",
     "lint:fix": "eslint . --ext ts,tsx --fix --max-warnings 50",
-    "preview": "vite preview --host",
+  "preview": "cd eduflow-next && npm run start",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
