@@ -89,6 +89,20 @@ Open a PR; GitHub Actions will validate.
 - Firestore security rules & SECURITY.md.
 - Optional: export sessions / notes as CSV/JSON.
 
+### Observability
+Enable Sentry (after adding dependency):
+```
+npm install @sentry/nextjs
+npx sentry-wizard -i nextjs
+```
+Set SENTRY_DSN in env. Web Vitals are forwarded via reportWebVitals -> monitoring helper (captures via Sentry if present).
+
+Analyze bundle:
+```
+ANALYZE=true npm run build
+```
+Opens interactive treemap to guide additional dynamic imports.
+
 
 ## Notes
 - Add real icons to `public/icons/` for better PWA install prompts.

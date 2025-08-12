@@ -3,8 +3,12 @@ const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
 });
+const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' })
+// Sentry: lazy require; will be noop if not installed yet
+let withSentry = (cfg) => cfg
+try { withSentry = require('@sentry/nextjs').withSentryConfig } catch {}
 
-module.exports = withPWA({
+const baseConfig = {
   reactStrictMode: true,
   experimental: {
     optimizePackageImports: [
@@ -28,4 +32,6 @@ module.exports = withPWA({
       ],
     },
   ],
-});
+};
+
+module.exports = withSentry({ silent: true })(withBundleAnalyzer(withPWA(baseConfig)))

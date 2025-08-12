@@ -21,6 +21,13 @@ export const viewport: Viewport = {
   themeColor: '#0B0B2E',
 }
 
+export function reportWebVitals(metric: any) {
+  try {
+    const { reportVital } = require('@/lib/monitoring')
+    reportVital(metric)
+  } catch {}
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable}`} suppressHydrationWarning>
