@@ -8,6 +8,7 @@ lerna-debug.log*
 dist/
 build/
 dist-ssr/
+.next/
 *.tsbuildinfo
 .env
 .env.local
@@ -65,6 +66,7 @@ pids/
 *.zip
 *.tar.gz
 *.rar
+package-lock.json
 *HANDOVER*.txt
 PROJECT_HANDOVER_DOCUMENTATION*.txt
 ESSENTIAL_FILES_FOR_AI_HANDOVER*.txt
