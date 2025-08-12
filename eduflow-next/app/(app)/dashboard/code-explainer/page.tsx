@@ -1,4 +1,7 @@
 "use client"
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+export const metadata: Metadata = moduleMeta('Code Explainer','Understand code functionality, issues, and complexity.') as any
 
 import { AppShell } from '@/components/layout/app-shell'
 import dynamic from 'next/dynamic'

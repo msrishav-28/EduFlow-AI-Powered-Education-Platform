@@ -1,4 +1,7 @@
 "use client"
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+export const metadata: Metadata = moduleMeta('Study Analytics','Visualize study sessions, quiz performance and module usage.') as any
 
 import { AppShell } from '@/components/layout/app-shell'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
@@ -101,6 +104,14 @@ function AnalysisInner() {
   return (
     <>
       <h1 className="text-2xl font-semibold">Study Pattern Analysis</h1>
+      {uid && sessions.length > 0 && (
+        <button
+          onClick={async()=>{
+            try { const res = await fetch(`/api/export/sessions?uid=${uid}`); const blob = await res.blob(); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='sessions.csv'; a.click(); URL.revokeObjectURL(url) } catch {}
+          }}
+          className="mt-3 rounded-xl bg-primary-500 px-4 py-2 text-sm"
+        >Download CSV</button>
+      )}
       {!uid && <p className="mt-2 text-white/70">Sign in to see personalized analytics and progress.</p>}
       {uid && loading && <p className="mt-2 text-white/70">Loading your recent sessions…</p>}
       {uid && !loading && !sessions.length && <p className="mt-2 text-white/70">No sessions yet. Generate MCQs and submit your answers to build insights.</p>}

@@ -1,4 +1,7 @@
 "use client"
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+export const metadata: Metadata = moduleMeta('MCQ Generator','Generate multiple-choice quizzes from study content.') as any
 import { AppShell } from '@/components/layout/app-shell'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { aiGenerate } from '@/lib/api'

@@ -1,4 +1,7 @@
 "use client"
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+export const metadata: Metadata = moduleMeta('PDF / DOCX Study Extractor','Extract text, notes and quizzes from PDF or DOCX files.') as any
 
 import { AppShell } from '@/components/layout/app-shell'
 import { Suspense, useEffect, useState, useCallback } from 'react'

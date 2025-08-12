@@ -1,4 +1,7 @@
 "use client"
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+export const metadata: Metadata = moduleMeta('Dashboard','Access AI study tools, analytics and resources.') as any
 import { AppShell } from '@/components/layout/app-shell'
 import Link from 'next/link'
 import { useEffect, useState, useMemo } from 'react'
