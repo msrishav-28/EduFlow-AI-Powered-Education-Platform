@@ -2,9 +2,12 @@
 
 import { AppShell } from '@/components/layout/app-shell'
 import { Suspense, useEffect, useMemo, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeHighlight from 'rehype-highlight'
+// Lazy markdown pipeline to reduce initial JS
+import dynamic from 'next/dynamic'
+const ReactMarkdown = dynamic(()=>import('react-markdown'), { ssr:false }) as any
+// remark / rehype only when client needs them
+const remarkGfm = require('remark-gfm').default || require('remark-gfm')
+const rehypeHighlight = require('rehype-highlight').default || require('rehype-highlight')
 import { aiGenerate, aiGenerateStream } from '@/lib/api'
 import { onAuthStateChanged } from 'firebase/auth'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
@@ -89,10 +92,16 @@ function ChatInner() {
     <>
       <h1 className="text-2xl font-semibold">AI Chatbot</h1>
       <div className="mt-6 grid gap-4">
-        <div className="glass max-h-[60vh] overflow-y-auto rounded-2xl p-4">
+        <div
+          className="glass max-h-[60vh] overflow-y-auto rounded-2xl p-4"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions text"
+          aria-label="Chat conversation"
+        >
           {messages.map((m, i) => (
             <div key={i} className={`mb-3 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
-              <div className={`inline-block max-w-[85%] rounded-xl px-3 py-2 ${m.role==='user' ? 'bg-primary-500 text-white' : 'bg-white/5 text-white'}`}>
+              <div className={`inline-block max-w-[85%] rounded-xl px-3 py-2 ${m.role==='user' ? 'bg-primary-500 text-white' : 'bg-white/5 text-white'}`} data-role={m.role}>
                 <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>{m.content}</ReactMarkdown>
               </div>
             </div>

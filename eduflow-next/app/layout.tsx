@@ -24,8 +24,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable}`} suppressHydrationWarning>
       <body>
+        {/* Skip link for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white"
+        >
+          Skip to main content
+        </a>
         <Providers>
-          {children}
+          {/* Main landmark */}
+          <main id="main-content" tabIndex={-1} className="outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

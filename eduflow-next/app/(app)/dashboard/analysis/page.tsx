@@ -125,12 +125,32 @@ function AnalysisInner() {
       </div>
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className="glass rounded-2xl p-4">
-          <div className="mb-2 font-medium">Weekly Activity</div>
-          <canvas ref={weeklyCanvasRef} width={560} height={220} className="w-full" />
+          <div className="mb-2 font-medium" id="weekly-activity-heading">Weekly Activity</div>
+          <p id="weekly-activity-desc" className="sr-only">
+            Histogram of sessions over the last 7 days. Bars represent counts per day.
+          </p>
+          <canvas
+            ref={weeklyCanvasRef}
+            width={560}
+            height={220}
+            className="w-full"
+            role="img"
+            aria-labelledby="weekly-activity-heading weekly-activity-desc"
+          />
         </div>
         <div className="glass rounded-2xl p-4">
-          <div className="mb-2 font-medium">Module Breakdown</div>
-          <canvas ref={moduleCanvasRef} width={560} height={220} className="w-full" />
+          <div className="mb-2 font-medium" id="module-breakdown-heading">Module Breakdown</div>
+          <p id="module-breakdown-desc" className="sr-only">
+            Pie chart showing proportional usage of modules by session count.
+          </p>
+          <canvas
+            ref={moduleCanvasRef}
+            width={560}
+            height={220}
+            className="w-full"
+            role="img"
+            aria-labelledby="module-breakdown-heading module-breakdown-desc"
+          />
         </div>
       </div>
     </>
