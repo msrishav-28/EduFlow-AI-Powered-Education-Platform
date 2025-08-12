@@ -22,7 +22,7 @@ export function Sidebar() {
         {items.map(({ href, label, icon: Icon }) => {
           const active = pathname?.startsWith(href)
           return (
-            <Link key={href} href={href} className={cn('flex items-center gap-3 rounded-xl px-3 py-2 text-white/80 hover:bg-white/5', active && 'bg-white/10 text-white')}
+            <Link key={href} href={href} prefetch className={cn('focus-ring flex items-center gap-3 rounded-xl px-3 py-2 text-white/80 hover:bg-white/5', active && 'bg-white/10 text-white')}
               aria-current={active ? 'page' : undefined}>
               <Icon className="h-5 w-5" />
               <span>{label}</span>
