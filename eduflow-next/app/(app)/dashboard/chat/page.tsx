@@ -1,3 +1,7 @@
+import type { Metadata } from 'next'
+import { moduleMeta } from '@/lib/seo'
+
+export const metadata: Metadata = moduleMeta('AI Chatbot', 'Interactive AI study chatbot supporting Gemini & local models.') as any
 "use client"
 
 import { AppShell } from '@/components/layout/app-shell'

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { buildJsonLd } from '@/lib/seo'
 import { Inter, IBM_Plex_Serif } from 'next/font/google'
 import { Providers } from '@/components/layout/providers'
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable}`} suppressHydrationWarning>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd()) }} />
         {/* Skip link for keyboard users */}
         <a
           href="#main-content"

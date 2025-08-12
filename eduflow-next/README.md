@@ -35,7 +35,60 @@ npm run dev
 - React Query for data fetching
 - Zustand for state management
 - PWA via next-pwa
-- Accessible UI components
+- Accessible UI components (skip link, focus rings, aria-live regions, labeled charts)
+- Security headers (CSP, HSTS, Permissions-Policy), markdown sanitization
+- Structured metadata & JSON-LD for SEO
+- Jest + Testing Library + jest-axe tests
+
+## Architecture Overview
+```
+app/                Route groups & pages
+	(app)/dashboard   Authenticated study modules (chat, mcq, pdf, analysis, etc.)
+	api/ai/generate   Unified AI generation endpoint (Gemini/Ollama, streaming)
+components/         UI + layout primitives
+lib/                api wrappers, firebase, seo helpers, mcq parser
+store/              Zustand provider selection
+__tests__/          Unit & a11y tests
+```
+
+Data Flow:
+User Action -> Page component -> aiGenerate / aiGenerateStream -> /api/ai/generate -> Provider SDK or Ollama HTTP -> Streamed tokens -> UI state -> Firestore session log.
+
+## SEO & Metadata
+- Base JSON-LD (WebApplication) injected in root layout.
+- Per-module metadata via `moduleMeta()` helper (example: Chat page).
+- OpenGraph & Twitter summary tags auto-derived.
+- Extend by adding `export const metadata` to other dashboard pages.
+
+## Security
+- CSP (adjust domains as new providers added).
+- HSTS + Permissions-Policy hardened.
+- Markdown sanitized (rehype-sanitize) before rendering AI output.
+- Future: Firestore security rules & Sentry instrumentation.
+
+## Testing
+- `api.test.ts` covers error + success path for aiGenerate.
+- `mcq.test.ts` validates JSON & plain-text parsing including answer detection.
+- `a11y.test.tsx` baseline jest-axe check.
+- Extend with streaming and PDF parsing mocks next.
+
+## Contributing (Extended)
+Run full quality gates locally:
+```bash
+npm run lint
+npm run type-check
+npm test
+npm run build
+```
+Open a PR; GitHub Actions will validate.
+
+## Roadmap / Next Steps
+- Add per-module metadata exports for all routes.
+- Bundle analysis & further code-splitting of markdown/highlight.
+- Sentry + Web Vitals reporting hook.
+- Firestore security rules & SECURITY.md.
+- Optional: export sessions / notes as CSV/JSON.
+
 
 ## Notes
 - Add real icons to `public/icons/` for better PWA install prompts.
