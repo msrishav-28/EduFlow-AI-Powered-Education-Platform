@@ -37,13 +37,15 @@ export function parseMCQs(raw: string): MCQ[] | null {
     if (lines.length < 3) continue
     const question = lines[0].replace(/^\d+\.?\s*/, '').trim()
     const options: MCQ['options'] = []
+    const ansLine = lines.find(l => /^(answer|correct)\b/i.test(l))
     for (const l of lines.slice(1)) {
+      if (l === ansLine) continue
       const m = l.match(/^([ABCD])\)?[\.:\-]?\s*(.*)$/i)
       if (m) options.push({ label: m[1].toUpperCase() as any, text: m[2].trim() })
     }
-    const ansLine = lines.find(l => /correct|answer/i.test(l))
     const expLine = lines.find(l => /explanation/i.test(l))
-    const correctMatch = ansLine?.match(/([ABCD])/i)
+  let correctMatch = ansLine?.match(/answer\s*[:\-]?\s*([ABCD])/i)
+  if (!correctMatch) correctMatch = ansLine?.match(/([ABCD])/i)
     if (options.length) {
       parsed.push({
         question,

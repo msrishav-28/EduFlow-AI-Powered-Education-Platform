@@ -8,6 +8,7 @@ const ReactMarkdown = dynamic(()=>import('react-markdown'), { ssr:false }) as an
 // remark / rehype only when client needs them
 const remarkGfm = require('remark-gfm').default || require('remark-gfm')
 const rehypeHighlight = require('rehype-highlight').default || require('rehype-highlight')
+const rehypeSanitize = require('rehype-sanitize')
 import { aiGenerate, aiGenerateStream } from '@/lib/api'
 import { onAuthStateChanged } from 'firebase/auth'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
@@ -102,7 +103,7 @@ function ChatInner() {
           {messages.map((m, i) => (
             <div key={i} className={`mb-3 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
               <div className={`inline-block max-w-[85%] rounded-xl px-3 py-2 ${m.role==='user' ? 'bg-primary-500 text-white' : 'bg-white/5 text-white'}`} data-role={m.role}>
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>{m.content}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight, rehypeSanitize]}> {m.content} </ReactMarkdown>
               </div>
             </div>
           ))}
