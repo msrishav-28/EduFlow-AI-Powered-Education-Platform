@@ -19,12 +19,32 @@ EduFlow is a web-based platform designed to assist students and educators by lev
 
 ## 🛠️ Tech Stack
 
--   **Backend:** Python, Flask
--   **AI Integration:** OpenAI API (GPT models)
--   **Frontend:** HTML, CSS, JavaScript
--   **Core Libraries:** `requests`, `python-dotenv`
+Legacy prototype (Flask) plus new production Next.js frontend (`project/eduflow-next`).
 
-## 🚀 Getting Started
+-   **Frontend (Next.js 14 App Router):** TypeScript, Tailwind CSS, Framer Motion, React Query, Zustand, PWA (next-pwa)
+-   **AI Providers:** Google Gemini, Local Ollama (configurable, streaming)
+-   **Auth/Analytics:** Firebase Auth & Firestore session logging
+-   **Parsing:** pdfjs-dist, mammoth for PDF/DOCX, custom MCQ parser
+-   **Legacy Backend:** Python / Flask (original prototype)
+
+## 🚀 Getting Started (Next.js Frontend)
+
+1. `cd project/eduflow-next`
+2. `cp .env.example .env.local` and fill keys (Firebase optional)
+3. `npm install`
+4. `npm run dev` → http://localhost:3000
+5. Optional: hit `/api/health/ai` for provider readiness
+
+Run quality gates:
+
+```bash
+npm run lint
+npm run type-check
+npm test
+npm run build
+```
+
+## 🚀 Getting Started (Legacy Flask Prototype)
 
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -101,6 +121,8 @@ EduFlow is built using the **Flask** web framework.
 -   The Flask backend sends this response back to the frontend, where it is dynamically displayed to the user.
 
 ## 🤝 Contributing
+
+CI pipeline (GitHub Actions) runs lint, type-check, tests, and build on pushes / PRs to `master`.
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
